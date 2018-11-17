@@ -114,7 +114,8 @@ export default {
       dialogAddform: false,
       dialogallocation: false,
       form: {
-        username: 'zs',
+        id: '',
+        username: '',
         mobile: '',
         email: ''
       },
@@ -225,7 +226,10 @@ export default {
     getUser(id) {
       this.axios.get(`users/${id}`).then(res => {
         this.dialogFormVisible = true
-        this.form = res.data
+        this.form.id = res.data.id
+        this.form.username = res.data.username
+        this.form.mobile = res.data.mobile
+        this.form.email = res.data.email
       })
     },
     // 更改用户信息
@@ -286,7 +290,7 @@ export default {
         this.roleList = res.data
       })
       this.axios.get(`users/${id}`).then(res => {
-        this.allocationForm.rid = res.data.rid
+        this.allocationForm.rid = res.data.rid === -1 ? '' : res.data.rid
         this.allocationForm.username = res.data.username
       })
     },

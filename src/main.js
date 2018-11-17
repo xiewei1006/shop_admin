@@ -7,6 +7,15 @@ import App from './App'
 import router from './router'
 import axios from 'axios'
 import './assets/index.css'
+import moment from 'moment'
+
+// 导入element-tree-grid插件, 导入的就是一个别人定义好的组件
+import ElTreeGrid from 'element-tree-grid'
+
+// 注册一个全局的组件
+// el-table-tree-column
+// console.log('el-table-tree-column', ElTreeGrid)
+Vue.component(ElTreeGrid.name, ElTreeGrid)
 
 Vue.use(ElementUI)
 // axios全局对象配置
@@ -26,18 +35,13 @@ axios.interceptors.response.use(function(res) {
 Vue.prototype.axios = axios
 
 Vue.config.productionTip = false
+Vue.filter('dateFormat', data => {
+  return moment(data * 1000).format('YYYY-MM-DD HH:mm:ss')
+})
 
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
-  data: {
-    token: ''
-  },
-  methods: {
-    gettoken(data) {
-      this.token = data
-    }
-  },
   router,
   components: { App },
   template: '<App/>'
